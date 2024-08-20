@@ -1,4 +1,4 @@
-# stimzrx/wolf
+# StimzRx/wolf
 
 [![Discord](https://img.shields.io/discord/856434175455133727.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/kRGUDHNHt2)
 [![Donate button](https://img.shields.io/badge/Donate-Open%20Collective-blue.svg?color=blue)](https://opencollective.com/games-on-whales/donate)
@@ -23,7 +23,7 @@ and then restart steam. This should persist for that user going forward.
 1) Fully follow/complete the [normal install directions](https://games-on-whales.github.io/wolf/stable/user/quickstart.html)
 2) Start the **NORMAL** Wolf image at least once before continuing with `docker compose up` and then stop it(with `docker compose down`)
 (skipping this step will cause there to be no `/etc/wolf/cfg/config.toml` file to edit later on!)
-4) Change the wolf's `docker-compose.yml` file on the `image: ghcr.io/games-on-whales/wolf:stable` line to use `ghcr.io/stimzrx/wolf:stable` instead
+4) Change the wolf's `docker-compose.yml` file on the `image: ghcr.io/games-on-whales/wolf:stable` line to use `ghcr.io/stimzrx/wolf:latest` instead
 5) Edit `/etc/wolf/cfg/config.toml` under the `Steam` app section to look like this:
 `
 base_create_json = """
