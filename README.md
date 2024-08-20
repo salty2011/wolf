@@ -12,7 +12,7 @@ This unofficial fork of Wolf will allow it to use OverlayFS in its steam contain
 games downloaded for them once they log in, and they can immediately play them (if they own the game). This only works if the host computer has downloaded
 the game themselves via steam first.
 
-In addition, it is likely each time a new user connects the first time, they will have to go to `Steam Settings` -> `Combatability` tab -> Turn on `Enable Steam Play for all other titles`
+In addition, it is likely each time a new user connects the first time, they will have to go to `Steam Settings` -> `Compatability` tab -> Turn on `Enable Steam Play for all other titles`
 and then restart steam. This should persist for that user going forward.
 
 **If wolf users cant see some games as downloaded or playable this is likely why!**
@@ -23,7 +23,7 @@ and then restart steam. This should persist for that user going forward.
 1) Fully follow/complete the [normal install directions](https://games-on-whales.github.io/wolf/stable/user/quickstart.html)
 2) Start the **NORMAL** Wolf image at least once before continuing with `docker compose up` and then stop it(with `docker compose down`)
 (skipping this step will cause there to be no `/etc/wolf/cfg/config.toml` file to edit later on!)
-4) Change the wolf's `docker-compose.yml` file on the `image: ghcr.io/games-on-whales/wolf:stable` line to use `ghcr.io/stimzrx/wolf:latest` instead
+4) Change the wolf's `docker-compose.yml` file on the `image: ghcr.io/games-on-whales/wolf:stable` line to use `ghcr.io/stimzrx/wolf:stable` instead
 5) Edit `/etc/wolf/cfg/config.toml` under the `Steam` app section to look like this:
 ```
 base_create_json = """
