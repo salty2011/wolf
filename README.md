@@ -26,6 +26,7 @@ and then restart steam. This should persist for that user going forward.
 4) Change the wolf's `docker-compose.yml` file on the `image: ghcr.io/games-on-whales/wolf:stable` line to use `ghcr.io/stimzrx/wolf:stable` instead
 5) Edit `/etc/wolf/cfg/config.toml` under the `Steam` app section to look like this:
 ```
+env = ["PUID=1000","PGID=1000","PROTON_LOG=1","RUN_SWAY=true","GOW_REQUIRED_DEVICES=/dev/input/* /dev/dri/* /dev/nvidia*"]
 base_create_json = """
 {
   "Entrypoint": ["/overlayfs-entrypoint.sh"],
@@ -37,6 +38,7 @@ base_create_json = """
     ...
 ```
 Make sure to replace the `<YOUR USERNAME HERE>` with your own linux user name.
+If needed, change PUID and PGID to match your host user's id and group id.
 
 6) Make a new file at `/etc/wolf/overlayfs-entrypoint.sh` named exactly that and put the `overlayfs-entrypoint.sh` script [found here](https://github.com/StimzRx/wolf/blob/stable/overlayfs-entrypoint.sh) in it.
 7) run the command `sudo chmod +x /etc/wolf/overlayfs-entrypoint.sh` to allow execution of the script or it will crash when opening steam
