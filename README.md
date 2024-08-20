@@ -36,7 +36,7 @@ base_create_json = """
     ],
     ...
 ```
-Make sure to replace the <YOUR USERNAME HERE> with your own linux user name.
+Make sure to replace the `<YOUR USERNAME HERE>` with your own linux user name.
 
 6) Make a new file at `/etc/wolf/overlayfs-entrypoint.sh` named exactly that and put the `overlayfs-entrypoint.sh` script [found here](https://github.com/StimzRx/wolf/blob/stable/overlayfs-entrypoint.sh) in it.
 7) run the command `sudo chmod +x /etc/wolf/overlayfs-entrypoint.sh` to allow execution of the script or it will crash when opening steam
