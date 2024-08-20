@@ -292,6 +292,12 @@ auto setup_sessions_handlers(const immer::box<state::AppState> &app_state,
           /* Adding custom state folder */
           mounted_paths.push_back({session->app_state_folder, "/home/retro"});
 
+          std::string host_state_folder = utils::get_env("HOST_APPS_STATE_FOLDER", "/etc/wolf");
+          std::string full_path = host_state_folder + "/overlayfs/" + std::to_string(session->session_id);
+          std::filesystem::create_directories(full_path);
+          logs::log(logs::debug, "[OverlayFS] Enabled for '" + full_path + "'");
+          mounted_paths.push_back({full_path, "/overlayfs/user"});
+
           /* GPU specific adjustments */
           auto additional_devices = linked_devices(render_node);
           std::copy(additional_devices.begin(), additional_devices.end(), std::back_inserter(all_devices));
