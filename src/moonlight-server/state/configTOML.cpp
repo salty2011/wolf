@@ -156,6 +156,7 @@ toml::value v1_to_v2(const toml::value &v1, const std::string &source) {
   v2["hostname"] = v1.at("hostname").as_string();
   v2["uuid"] = v1.at("uuid").as_string();
   v2["support_hevc"] = v1.at("support_hevc").as_boolean();
+  v2["support_overlayfs"] = v1.at("support_overlayfs").as_boolean();
   v2["paired_clients"] = v1.at("paired_clients").as_array() |                                        //
                          ranges::views::transform([](const toml::value &client) {                    //
                            return PairedClient{.client_cert = client.at("client_cert").as_string()}; //
