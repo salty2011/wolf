@@ -25,7 +25,7 @@ and then restart steam. This should persist for that user going forward.
 (skipping this step will cause there to be no `/etc/wolf/cfg/config.toml` file to edit later on!)
 4) Change the wolf's `docker-compose.yml` file on the `image: ghcr.io/games-on-whales/wolf:stable` line to use `ghcr.io/stimzrx/wolf:latest` instead
 5) Edit `/etc/wolf/cfg/config.toml` under the `Steam` app section to look like this:
-`
+```
 base_create_json = """
 {
   "Entrypoint": ["/overlayfs-entrypoint.sh"],
@@ -34,7 +34,8 @@ base_create_json = """
       "/etc/wolf/overlayfs-entrypoint.sh:/overlayfs-entrypoint.sh",
       "/home/<YOUR USERNAME HERE>/.steam/debian-installation/steamapps:/overlayfs/steam-ro:ro"
     ],
-    ...`
+    ...
+```
 Make sure to replace the <YOUR USERNAME HERE> with your own linux user name.
 
 6) Make a new file at `/etc/wolf/overlayfs-entrypoint.sh` named exactly that and put the `overlayfs-entrypoint.sh` script [found here](https://github.com/StimzRx/wolf/blob/stable/overlayfs-entrypoint.sh) in it.
