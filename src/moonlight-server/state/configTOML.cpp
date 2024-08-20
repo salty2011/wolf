@@ -215,6 +215,7 @@ Config load_or_default(const std::string &source, const std::shared_ptr<dp::even
 
   auto hostname = toml::find_or(cfg, "hostname", "Wolf");
   bool support_av1 = toml::find_or<bool>(cfg, "support_av1", false);
+  bool support_overlayfs = toml::find_or<bool>(cfg, "support_overlayfs", false);
 
   GstVideoCfg default_gst_video_settings = toml::find<GstVideoCfg>(cfg, "gstreamer", "video");
   GstAudioCfg default_gst_audio_settings = toml::find<GstAudioCfg>(cfg, "gstreamer", "audio");
@@ -326,6 +327,7 @@ Config load_or_default(const std::string &source, const std::shared_ptr<dp::even
                 .config_source = source,
                 .support_hevc = toml::find_or<bool>(cfg, "support_hevc", false),
                 .support_av1 = support_av1,
+                .support_overlayfs = support_overlayfs,
                 .paired_clients = *clients_atom,
                 .apps = apps};
 }
