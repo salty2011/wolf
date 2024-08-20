@@ -32,7 +32,7 @@ base_create_json = """
   "Entrypoint": ["/overlayfs-entrypoint.sh"],
   "HostConfig": {
     "Binds": [
-      "/etc/wolf/overlayfs-entrypoint.sh:/overlayfs-entrypoint.sh",
+      "/etc/wolf/overlayfs-entrypoint.sh:/overlayfs-entrypoint.sh:ro",
       "/home/<YOUR USERNAME HERE>/.steam/debian-installation/steamapps:/overlayfs/steam-ro:ro"
     ],
     ...
