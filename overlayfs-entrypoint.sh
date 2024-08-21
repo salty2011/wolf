@@ -5,8 +5,7 @@ set -e  # Exit immediately if a command exits with a non-zero status
 ## VARIABLES ##
 TARGET_OVERLAY_DIR=${TARGET_OVERLAY_DIR:-"/home/retro/.steam/debian-installation/steamapps"}
 LOWER_DIR=${LOWER_DIR:-"/overlayfs/steam-ro/"}
-UPPER_DIR=${UPPER_DIR:-"/overlayfs/user/upper/"}
-WORK_DIR=${WORK_DIR:-"/overlayfs/user/work/"}
+UPPER_DIR_BASE=${UPPER_DIR_BASE:-"/overlayfs/user/upper/"}
 ###############
 
 # Include the gow bash utils library for logging
@@ -62,20 +61,37 @@ check_and_set_permissions() {
     return 0
 }
 
-# Make sure the overlayfs directories and targeted overlay directory exist
-gow_log "[OverlayFS-Entrypoint] Creating necessary directories..."
-mkdir -p /overlayfs/user/{upper,work} || { gow_log "[OverlayFS-Entrypoint] Failed to create overlay directories"; exit 1; }
+# Make sure the overlayfs base directory exists
+gow_log "[OverlayFS-Entrypoint] Ensuring base directory exists..."
+mkdir -p ${UPPER_DIR_BASE} || { gow_log "[OverlayFS-Entrypoint] Failed to create base directory"; exit 1; }
 mkdir -p $TARGET_OVERLAY_DIR || { gow_log "[OverlayFS-Entrypoint] Failed to create target directory"; exit 1; }
 
+# Use the container's hostname as the random directory name
+CONTAINER_ID=$(hostname)
+CONTAINER_DIR="${UPPER_DIR_BASE}${CONTAINER_ID}"
+UPPER_DIR="${CONTAINER_DIR}/upper"
+WORK_DIR="${CONTAINER_DIR}/work"
+
+mkdir -p "$UPPER_DIR" "$WORK_DIR" || { gow_log "[OverlayFS-Entrypoint] Failed to create container directories"; exit 1; }
+
+gow_log "[OverlayFS-Entrypoint] Created container directories:"
+gow_log "[OverlayFS-Entrypoint] Container directory: $CONTAINER_DIR"
+gow_log "[OverlayFS-Entrypoint] Upper: $UPPER_DIR"
+gow_log "[OverlayFS-Entrypoint] Work: $WORK_DIR"
+
 # Check and set permissions of the directories
-check_and_set_permissions "/overlayfs/user/upper" || exit 1
-check_and_set_permissions "/overlayfs/user/work" || exit 1
+check_and_set_permissions "$CONTAINER_DIR" || exit 1
+check_and_set_permissions "$UPPER_DIR" || exit 1
+check_and_set_permissions "$WORK_DIR" || exit 1
 check_and_set_permissions "/home/retro" || exit 1
 
 gow_log "[OverlayFS-Entrypoint] Creating overlay mount..."
 
 # Create the overlay
 mount -t overlay overlay -o lowerdir=$LOWER_DIR,upperdir=$UPPER_DIR,workdir=$WORK_DIR $TARGET_OVERLAY_DIR || { gow_log "[OverlayFS-Entrypoint] Failed to mount overlay"; exit 1; }
+
+
+gow_log "[OverlayFS-Entrypoint] Overlay mount successful. Container directory: $CONTAINER_DIR"
 
 # Launch the base image's entrypoint.sh which will handle starting steam
 gow_log "[OverlayFS-Entrypoint] Launching base entrypoint.sh"
