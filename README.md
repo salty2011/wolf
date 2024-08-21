@@ -23,6 +23,7 @@ and then restart steam. This should persist for that user going forward.
 1) Fully follow/complete the [normal install directions](https://games-on-whales.github.io/wolf/stable/user/quickstart.html)
 2) Start the **NORMAL** Wolf image at least once before continuing with `docker compose up` and then stop it(with `docker compose down`)
 (skipping this step will cause there to be no `/etc/wolf/cfg/config.toml` file to edit later on!)
+3) Create the following directories '/home/<YOUR USERNAME HERE>/wolf/clients/temp' this will be used for persisting client date outside of the container
 4) Change the wolf's `docker-compose.yml` file on the `image: ghcr.io/games-on-whales/wolf:stable` line to use `ghcr.io/stimzrx/wolf:stable` instead
 5) Edit `/etc/wolf/cfg/config.toml` under the `Steam` app section to look like this:
 ```
@@ -34,6 +35,7 @@ base_create_json = """
     "Binds": [
       "/etc/wolf/overlayfs-entrypoint.sh:/overlayfs-entrypoint.sh:ro",
       "/home/<YOUR USERNAME HERE>/.steam/debian-installation/steamapps:/overlayfs/steam-ro:ro"
+      "/home/<YOUR USERNAME HERE>/wolf/clients/temp:/overlayfs/upper:rw"
     ],
     ...
 ```
