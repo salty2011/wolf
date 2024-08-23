@@ -70,11 +70,11 @@ Make sure to replace the `<YOUR USERNAME HERE>` with your own linux user name.
 - `image: ghcr.io/games-on-whales/wolf:stable` >>>> `image: ghcr.io/stimzrx/wolf:stable`
 ```
 5) Edit `/etc/wolf/cfg/config.toml` under the `Steam` app section to look like this:
-
+```
 Note under there are some changes you should make in the env settings
 PUID : This should match the GID for the ./wolf directory
 PGID : This should match the UID for the ./wolf directory
-
+```
 Now you need to bind the wolf directories as per the Binds section
 ```
 env = ["PUID=1000","PGID=1000","PROTON_LOG=1","RUN_SWAY=true","GOW_REQUIRED_DEVICES=/dev/input/* /dev/dri/* /dev/nvidia*"]
@@ -88,7 +88,6 @@ base_create_json = """
       "/home/<YOUR USERNAME HERE>/wolf/clients/temp:/overlayfs/user:rw"
     ],
   }
-    ...
 ```
 Make sure to use the directories made in step 3
 
