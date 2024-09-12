@@ -468,3 +468,10 @@ Reload the udev rules either by rebooting or run:
 udevadm control --reload-rules && udevadm trigger
 ....
 
+== Remotely Access to Wolf
+The development team does not currently recommend directly exposing Wolf Server onto the internet. 
+
+If you need to access Wolf remotely then a VPN is the best option today. This is not a topic we cover however there many great resources on the internet you can use to set this up.
+
+
+
